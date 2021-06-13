@@ -111,24 +111,24 @@ class Game(Scene):
 	def __init__(self):
 		super().__init__(600,600)
 		self.sean = Sean(self)
-    self.CaptainPanini = CaptainPanini(self)
-    self.kamille = Kamille(self)
-    self.Rickrolled = RickAstley(self)
-    self.raphael = Raphael(self)
+		self.CaptainPanini = CaptainPanini(self)
+		self.kamille = Kamille(self)
+		self.Rickrolled = RickAstley(self)
+		self.raphael = Raphael(self)
 		self.Ethan = Cheesepuff(self)
-    self.Sophie = Sophie(self)
+		self.Sophie = Sophie(self)
 
 
 
 		
 	def updateGame(self):
 		self.sean.update()
-    self.kamille.update()
-    self.Ethan.update()
-    self.Rickrolled.update()
+		self.kamille.update()
+		self.Ethan.update()
+		self.Rickrolled.update()
 		self.raphael.update()
-    self.Sophie.update()
-    self.CaptainPanini.update()
+		self.Sophie.update()
+		self.CaptainPanini.update()
 
 
 
