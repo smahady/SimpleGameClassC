@@ -73,7 +73,7 @@ class Raphael(Character):
     self.y = 65
     self.dx = 3
     self.dy = 3
-	  self.boundAction = Scene.WRAP
+    self.boundAction = Scene.WRAP
 
 #Nelsun's Character
 # 112 x 67
