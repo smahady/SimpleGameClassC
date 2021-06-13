@@ -68,12 +68,12 @@ class Kamille(Character):
 # 112 x 67
 class Raphael(Character):
   def __init__(self, thisScene):
-  super().__init__(thisScene,"sprites/raphael_sprite.png", 112, 67)
-  self.x = 65
-  self.y = 65
-  self.dx = 3
-  self.dy = 3
-	self.boundAction = Scene.WRAP
+    super().__init__(thisScene,"sprites/raphael_sprite.png", 112, 67)
+    self.x = 65
+    self.y = 65
+    self.dx = 3
+    self.dy = 3
+	  self.boundAction = Scene.WRAP
 
 #Nelsun's Character
 # 112 x 67
