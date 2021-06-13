@@ -28,7 +28,7 @@ class Sean(Character):
 #Ethan's Character
 # 125 x 123
 class CheesePuff(Character):
-	def __init__(self, thisScene)
+	def __init__(self, thisScene):
 		super().__init__(thisScene, "sprites/ethan_sprite.png", 125, 123)
 		self.x = 150
 		self.y = 150
@@ -56,7 +56,7 @@ class RickAstley(Character):
 #Kamille's Character
 # 75 x 79
 class Kamille(Character):
-  def __init__(self, thisScene)
+  def __init__(self, thisScene):
     super.()__init__(thisScene, "sprites/kamille_sprite.png", 75, 79)
     self.x = 70
     self.y = 70
@@ -67,7 +67,7 @@ class Kamille(Character):
 #Raphael's Character
 # 112 x 67
 class Raphael(Character):
-  def __init__(self, thisScene)
+  def __init__(self, thisScene):
   super.().__init__(thisScene,"sprites/raphael_sprite.png", 112, 67)
   self.x = 65
   self.y = 65
@@ -78,7 +78,7 @@ class Raphael(Character):
 #Nelsun's Character
 # 112 x 67
 class CaptainPanini(Character):
-  def __init__(self, thisScene)
+  def __init__(self, thisScene):
   super().__init__(thisScene,"sprites/nelsun_sprite.png" , 112, 67)
   self.x += 60
   self.y += 60
@@ -90,7 +90,7 @@ class CaptainPanini(Character):
 #Sophie's Character
 # 75 x 50
 class Sophie(Character):
-  def __init__(self, thisScene)
+  def __init__(self, thisScene):
   super().__init__(thisScene, "sprites/sophie_sprite.png", 75, 50)
   self.x += 75
   self.y += 50
