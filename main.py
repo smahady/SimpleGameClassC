@@ -91,7 +91,7 @@ class CaptainPanini(Character):
 # 75 x 50
 class Sophie(Character):
   def __init__(self, thisScene)
-  super(). __init__(thisScene, "sprites/sophie_sprite.png", 75, 50)
+  super().__init__(thisScene, "sprites/sophie_sprite.png", 75, 50)
   self.x += 75
   self.y += 50
   self.dx =6
@@ -110,12 +110,29 @@ app = QApplication(sys.argv)
 class Game(Scene):
 	def __init__(self):
 		super().__init__(600,600)
-		self.spaceship = Sprite(self, "spaceship100.png", 100, 93)
+		self.sean = Sean(self)
+    self.CaptainPanini = CaptainPanini(self)
+    self.kamille = Kamille(self)
+    self.Rickrolled = RickAstley(self)
+    self.raphael = Raphael(self)
+		self.Ethan = Cheesepuff(self)
+    self.Sophie = Sophie(self)
+
+
+
 		
 	def updateGame(self):
-		print("My Update")
-		self.spaceship.x +=1
-		self.spaceship.update()
+		self.sean.update()
+    self.kamille.update()
+    self.Ethan.update()
+    self.Rickrolled.update()
+		self.raphael.update()
+    self.Sophie.update()
+    self.CaptainPanini.update()
+
+
+
+		
 
 myGame = Game()
 myGame.start()
