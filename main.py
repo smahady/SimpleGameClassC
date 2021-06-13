@@ -79,24 +79,24 @@ class Raphael(Character):
 # 112 x 67
 class CaptainPanini(Character):
   def __init__(self, thisScene):
-  super().__init__(thisScene,"sprites/nelsun_sprite.png" , 112, 67)
-  self.x += 60
-  self.y += 60
-  self.dx = 10
-  self.dy = -10
-  self.boundAction = Scene.WRAP
+    super().__init__(thisScene,"sprites/nelsun_sprite.png" , 112, 67)
+    self.x += 60
+    self.y += 60
+    self.dx = 10
+    self.dy = -10
+    self.boundAction = Scene.WRAP
 
 # Make a class that inherits character
 #Sophie's Character
 # 75 x 50
 class Sophie(Character):
   def __init__(self, thisScene):
-  super().__init__(thisScene, "sprites/sophie_sprite.png", 75, 50)
-  self.x += 75
-  self.y += 50
-  self.dx =6
-  self.dy =6
-  self.boundAction = Scene.WRAP
+    super().__init__(thisScene, "sprites/sophie_sprite.png", 75, 50)
+    self.x += 75
+    self.y += 50
+    self.dx =6
+    self.dy =6
+    self.boundAction = Scene.WRAP
 
 
 
