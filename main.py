@@ -137,7 +137,7 @@ class Game(Scene):
 myGame = Game()
 myGame.start()
 myGame.show()
-sys.exit(app.
+sys.exit(app.app.exec_())
 
 
 ####################################
