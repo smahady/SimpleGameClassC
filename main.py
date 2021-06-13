@@ -137,9 +137,8 @@ class Game(Scene):
 myGame = Game()
 myGame.start()
 myGame.show()
-sys.exit(app.app.exec_())
-
-
+sys.exit(app.exec_())
+'''''
 ####################################
 #app = QApplication(sys.argv)
 #widget = QWidget()
@@ -201,7 +200,7 @@ for chara in arr:
 #Ethan's Sprite sheet
 # 125 x 123
 #https://opengameart.org/content/astronaut-4
-#sprite sheet by gamer805
+#sprite sheet by gamer805'''''
 
 
 
