@@ -49,7 +49,7 @@ class RickAstley(Character):
     self.x = 50
     self.y = 50
     self.dy = 9
-		self.boundAction = Scene.WRAP
+    self.boundAction = Scene.WRAP
   
 
 
