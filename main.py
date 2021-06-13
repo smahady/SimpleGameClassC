@@ -57,7 +57,7 @@ class RickAstley(Character):
 # 75 x 79
 class Kamille(Character):
   def __init__(self, thisScene):
-    super.()__init__(thisScene, "sprites/kamille_sprite.png", 75, 79)
+    super().__init__(thisScene, "sprites/kamille_sprite.png", 75, 79)
     self.x = 70
     self.y = 70
     self.dx += 5
@@ -68,7 +68,7 @@ class Kamille(Character):
 # 112 x 67
 class Raphael(Character):
   def __init__(self, thisScene):
-  super.().__init__(thisScene,"sprites/raphael_sprite.png", 112, 67)
+  super().__init__(thisScene,"sprites/raphael_sprite.png", 112, 67)
   self.x = 65
   self.y = 65
   self.dx = 3
