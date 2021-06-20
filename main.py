@@ -1,15 +1,21 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel
+from PySide2.QtWidgets import QApplication, QWidget, QLabel
 #from PyQt5.QtGui import QIcon
 #from PyQt5.QtCore import pyqtSlot
-from Scene import Scene
-from Sprite import Sprite
+from SimpleGame.Scene import Scene
+from SimpleGame.Sprite import Sprite
 
 # Base class
 class Character(Sprite):
 	def __init__(self, thisScene, imageFile, xSize, ySize):
 		super().__init__(thisScene, imageFile, xSize, ySize)
+	def update(self):
+		if self.y > 400:
+			self.dx = 0
+			self.dy = 0
+			self.y = 400
 
+		super().update()
 
 # delete imageFile in __init__, change in super()__init__
 # Sean Mahady's Character

@@ -1,8 +1,8 @@
 import sys
-from Keys import *
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel
+from SimpleGame.Keys import *
+from PySide2.QtWidgets import QApplication, QWidget, QLabel
 #from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import QTimer
+from PySide2.QtCore import QTimer
 
 class Scene(QWidget):
 	

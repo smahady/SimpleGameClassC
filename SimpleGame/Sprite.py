@@ -1,7 +1,7 @@
 import sys
 import math
-from PyQt5.QtGui import QImage, QPainter
-from PyQt5.QtCore import QTimer
+from PySide2.QtGui import QImage, QPainter
+from PySide2.QtCore import QTimer
 
 
 class Sprite():
