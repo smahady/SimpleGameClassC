@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 #from PyQt5.QtCore import pyqtSlot
 from SimpleGame.Scene import Scene
 from SimpleGame.Sprite import Sprite
+from SimpleGame.Block import Block
 from SimpleGame.Background import Background
 from enum import Enum
 
