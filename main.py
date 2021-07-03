@@ -74,36 +74,46 @@ class Character(Sprite):
 	def walkBehavior(self):
 		pass
 
-# delete imageFile in __init__, change in super()__init__
-# Sean Mahady's Character
-# 75 x 75
-# Sheet: 500 x 200
-# Animation Cell: 100 x 100
+# sean mahady
+#250x100
+# 50, 50
 class Sean(Character):
 	def __init__(self, thisScene):
-		super().__init__(thisScene, "sprites/sean_sheet.png", 500, 200)
-		self.x = 90
+		super().__init__(thisScene, "sprites/sean_sheet.png", 250, 100)
+		self.x = 75	
 		self.y = 100
-
-		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
-		#loadAnimation(sheetX, sheetY, cellX, cellY)
-		self.loadAnimation(500, 200, 100, 100)
-		self.generateAnimationCycles()
-		self.setAnimationSpeed(100)	# 10 times a second / ms
-		self.playAnimation()
-		self.dx = 1
-		self.dy = -1		
+		self.dy = 10
 		self.boundAction = Scene.WRAP
-		self.state = Character.runLeft
+		self.loadAnimation(250, 100, 50, 50) 	# divides the sprite sheet into pieces
+		self.generateAnimationCycles() 	#sets up each "cylce" into rows
+		self.setAnimationSpeed(10)	#sets a QTimer to 100ms
+		self.playAnimation()	#starts the QTimer
 
-	def update(self):
-		super().update()
+		#make a state for you class
+		self.state = States.FALLING	#falling
 
 	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
-	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
+	# This should check if self.scene.keysDown[Scene.K_RIGHT]is True. If so self.facing to 0, self.setCurrentCycle to 0, call the self.playAnimation method. Set the DX to a value between 0 and 10
+	# If not check if self.scene.keysDown[Scene.K_LEFT] is True. If so self.facing to 1, self.setCurrentCycle to 1, call the self.playAnimation method. Set the DX to a value between 0 and -10
+	def walkBehavior(self):
+		if self.scene.keysDown[Scene.K_RIGHT]:
+			self.facing = 0
+			self.setCurrentCycle(0)
+			self.playAnimation()
+			self.dx = 4
+			self.state = States.WALK
+		elif self.scene.keysDown[Scene.K_LEFT]:
+			self.facing = 1
+			self.setCurrentCycle(1)
+			self.playAnimation()
+			self.dx = -4
+			self.state = States.WALK
 
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
+	def jumpBehavior(self):
+		self.stateTimer = 25
+		self.dy = -4	
+		self.state = States.JUMP
 
 
 
