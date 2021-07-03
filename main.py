@@ -239,16 +239,16 @@ class SourCreamAndOnionPringles(Character):
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
     self.boundAction = Scene.WRAP
     self.loadAnimation(1232, 130, 112, 65)
-		self.generateAnimationCycles()
-		self.setAnimationSpeed(1000)
-		self.playAnimation()
-		self.dx = 10
-		self.dy = 8	
-		self.boundAction = Scene.WRAP
-		self.state = Character.runLeft
+    self.generateAnimationCycles()
+    self.setAnimationSpeed(1000)
+    self.playAnimation()
+    self.dx = 10
+    self.dy = 8	
+    self.boundAction = Scene.WRAP
+    self.state = Character.runLeft
 
-	def update(self):
-		super().update()
+  def update(self):
+    super().update()
 
 	# Add a method called walkBehavior. 
 	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
