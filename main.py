@@ -216,8 +216,8 @@ class Raphael(Character):
     self.generateAnimationCycles()
     self.setAnimationSpeed(100)
     
-	def update(self):
-		super().update()
+  def update(self):
+    super().update()
 
 	# Add a method called walkBehavior. 
 	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
