@@ -137,7 +137,7 @@ class CheesePuff(Character):
 		self.dx = 8 	
 		self.dy = 9
 		self.boundAction = Scene.WRAP
-    self.state = States.FALLING		
+		self.state = States.FALLING		
 
 	def update(self):
 		super().update()
