@@ -151,16 +151,16 @@ class RickAstley(Character):
     self.dy = 9
 		#loadAnimation(sheetX, sheetY, cellX, cellY)
     self.loadAnimation(88, 96, 44, 48)
-		self.generateAnimationCycles()
-		self.setAnimationSpeed(100)	# 10 times a second / ms
-		self.playAnimation()
-		self.boundAction = Scene.WRAP
-		self.state = Character.runLeft
+    self.generateAnimationCycles()
+    self.setAnimationSpeed(100)	# 10 times a second / ms
+    self.playAnimation()
+    self.boundAction = Scene.WRAP
+    self.state = Character.runLeft
 
-		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
+    # add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
 
-	def update(self):
-		super().update()
+  def update(self):
+    super().update()
 
 	# Add a method called walkBehavior. 
 	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
