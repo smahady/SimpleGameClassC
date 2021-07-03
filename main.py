@@ -81,7 +81,7 @@ class Character(Sprite):
 # Animation Cell: 100 x 100
 class Sean(Character):
 	def __init__(self, thisScene):
-		super().__init__(thisScene, "sprites/sean_sprite.png", 500, 200)
+		super().__init__(thisScene, "sprites/sean_sheet.png", 500, 200)
 		self.x = 90
 		self.y = 100
 
