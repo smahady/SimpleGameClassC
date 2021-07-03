@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from SimpleGame.Scene import Scene
 from SimpleGame.Sprite import Sprite
 from SimpleGame.Background import Background
+from enum import Enum
 
 class States(Enum):
 	FALLING = 0
