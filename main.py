@@ -319,7 +319,7 @@ class slimy(Character):
 		self.setAnimationSpeed(100)
 		self.playAnimation()
 		self.state = 0
-    self.state = States.FALLING		
+		self.state = States.FALLING		
 
 	def update(self):
 		super().update()
