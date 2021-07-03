@@ -137,6 +137,7 @@ class CheesePuff(Character):
 		self.dx = 8 	
 		self.dy = 9
 		self.boundAction = Scene.WRAP
+    self.state = States.FALLING		
 
 	def update(self):
 		super().update()
@@ -167,7 +168,7 @@ class RickAstley(Character):
     self.setAnimationSpeed(100)	# 10 times a second / ms
     self.playAnimation()
     self.boundAction = Scene.WRAP
-    self.state = Character.runLeft
+    self.state = States.FALLING
 
     # add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
 
@@ -201,7 +202,7 @@ class Kamille(Character):
     self.generateAnimationCycles(320, 128, 64, 64)
     self.setAnimationSpeed(100)
     self.playAnimation()
-    self.state = Character.runleft
+    self.state = States.FALLING
 
   def update(self):
     super().update()
@@ -257,7 +258,7 @@ class SourCreamAndOnionPringles(Character):
     self.dx = 10
     self.dy = 8	
     self.boundAction = Scene.WRAP
-    self.state = Character.runLeft
+    self.state = States.FALLING
 
   def update(self):
     super().update()
@@ -318,6 +319,7 @@ class slimy(Character):
 		self.setAnimationSpeed(100)
 		self.playAnimation()
 		self.state = 0
+    self.state = States.FALLING		
 
 	def update(self):
 		super().update()
