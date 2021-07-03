@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 #from PyQt5.QtCore import pyqtSlot
 from SimpleGame.Scene import Scene
 from SimpleGame.Sprite import Sprite
-from simpleGame.Background import Background
+from SimpleGame.Background import Background
 
 class States(Enum):
 	FALLING = 0
