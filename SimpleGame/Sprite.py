@@ -1,7 +1,7 @@
 import sys
 import math
-from PyQt5.QtGui import QImage, QPainter
-from PyQt5.QtCore import QTimer
+from PyQt5.QtGui import QImage, QPainter, QRgba64, QColor
+from PyQt5.QtCore import QTimer, QRect, QPoint
 
 
 class Sprite():
@@ -14,14 +14,22 @@ class Sprite():
 	CONTINUE = 5
 
 	def __init__(self, thisScene, imageFile, xSize, ySize):
-		self.width=xSize
-		self.height=ySize
+		self.width = xSize
+		self.height = ySize
 		self.animation = False
 		self.scene = thisScene
 		self.x = 0
 		self.y = 0
 		self.dx = 0
 		self.dy = 0
+		self.animationCell = 0
+		self.currentSpeed = 0
+		self.drawX = 0
+		self.drawY = 0
+		self.tick = 0
+		self.animC = False
+		self.debug = False
+
 		
 		# set bound action
 		self.boundAction = Sprite.WRAP	
@@ -29,9 +37,26 @@ class Sprite():
 		# rotation variables
 		self.rotated = False
 		
-		
-		# Load our file
-		self.file = QImage(imageFile)
+		# if tiled sprite set up tile
+		#if type(imageFile) == type(list): #better
+		#if type(imageFile) == list: #worst
+		if isinstance(imageFile, list): 
+			self.xLength = len(imageFile)
+			self.yLength = len(imageFile[0])
+			self.width = xSize * self.xLength
+			self.height = ySize * self.yLength 
+			self.src = QImage(self.width, self.height, QImage.Format_ARGB32)
+			self.src.fill(QColor("transparent"))
+			qp = QPainter(self.src)
+			for ix in range(0, self.xLength):
+				for iy in range(0, self.yLength):
+					part = QImage(imageFile[ix][iy])
+					
+					qp.drawImage((ix * xSize), (iy * ySize), part) 
+		else:		
+			# Load our file
+			
+			self.changeImage(imageFile)
 		
 		# get the width of our scene and set it to self.cWidth
 		self.cWidth = thisScene.width
@@ -44,45 +69,91 @@ class Sprite():
 		self.boundAction = Sprite.WRAP
 		
 		self.isVisible = True
+		
+		
 	
 	# changeImage(imgFile) – Changes the image to the image file.  	
-	def changeImage(self):
-		pass
+	def changeImage(self, imageFile):
 		
+		self.src = QImage(self.width, self.height, QImage.Format_RGB32)
+		qimage = QImage(imageFile)
+		scaled = qimage.scaled(self.width, self.height)
+		
+		self.src = scaled
+		
+		
+
+	# self.cat.loadAnimation(480, 240, 80, 60)	
 	# loadAnimation(width, height, cellWidth, cellHeight) Sets varialbes to slice up a sprite sheet into sprite
 	def loadAnimation(self, sheetWidth, sheetHeight, cellWidth, cellHeight):
-		self.animation = true
-		self.animationLength = 1000
+		self.animation = True
+		self.animationLength = 30
 		self.animationState = 0
-		#self.animTimer = new QTimer()
-		#self.animTimer.timeout.connect(self.animationLength)
+		self.animTimer = QTimer()
+		self.animTimer.timeout.connect(self.AnimTask)
 		self.animCellWidth = cellWidth
 		self.animCellHeight = cellHeight
 		self.animSheetWidth = sheetWidth
 		self.animSheetHeight = sheetHeight
 		self.width = cellWidth
 		self.height = cellHeight
+		self.animationCell = 0
+		self.test = 0
 		
-	'''// generateAnimationCycles() sets up animation cycles based on horizontal and vertical rows and columns.
-	public void generateAnimationCycles()
-	{
-		// compute horizontal animations
-		hAnimations = (int)(animSheetWidth / animCellWidth);
-		vAnimations = (int)(animSheetHeight / animCellHeight);
+
 		
-		sheet = new BufferedImage[hAnimations][vAnimations];
+	def AnimTask(self):
+		self.animationCell = self.animationCell + 1
+		self.test += 1
+		if self.debug == True:
+			print("Celll:", self.animationCell, self.hAnimations)
+		if self.animationCell > (self.hAnimations-1):
+			self.animationCell = 0
+			if self.debug == True:
+				print("Cell:", self.animationCell, self.hAnimations)
+			
+
+	def generateAnimationCycles(self):
+		# compute horizontal animations
+		self.hAnimations = (int(self.animSheetWidth / self.animCellWidth))
+		self.vAnimations = (int(self.animSheetHeight / self.animCellHeight))
 		
-		// go through columns and rows
-		for (int i = 0; i < vAnimations; i++) {
-			for (int j = 0; j < hAnimations; j++) {
-				sheet[j][i] = src.getSubimage(j * animCellWidth, i * animCellHeight, animCellWidth, animCellHeight);
-			}		
-		}	
-	}'''		
+		self.sheet = [[None] * self.vAnimations] * self.hAnimations
 		
-	# generateAnimationCycles() sets up animation cycles based on horizontal and vertical rows and columns
-	def generateAnimationCycle(self):
-		pass
+		if self.debug == True:
+			print("Len J:" + str(len(self.sheet)))
+			print("Len I:" + str(len(self.sheet[0])))
+			
+			
+			print(self.animSheetWidth)
+			print(self.animSheetHeight)		
+			print(self.hAnimations)
+			print(self.vAnimations)
+		
+		
+		# this never worked quite right...		
+		'''# go through columns and rows
+		for i in range(0, self.vAnimations):
+			for j in range(0, self.hAnimations):
+				self.sheet[j][i] = QImage(self.animCellWidth, self.animCellHeight, QImage.Format_ARGB32)
+				jPix = j * self.animCellWidth
+				iPix = i * self.animCellHeight
+				if self.debug == True:					
+					print("I:"+ str(i))				
+					print("J:" + str(j))
+					print("J pix:", jPix )
+					print("I pix:", iPix )	
+				#qp = QPainter(self.sheet[j][i])				
+				#qp.drawImage(QRectF(0, 0, self.animCellWidth, self.animCellHeight), self.src, QRectF(jPix, iPix, self.animCellWidth, self.animCellHeight))			
+				self.sheet[j][i] = self.src.copy(QRect(jPix, iPix, self.animCellWidth, self.animCellHeight))
+				
+				#del qp'''
+				
+				
+
+			
+		
+
 		
 	# renameCycles(cycleNameArray) This method allows you to set string names to each of the cycles. 
 	# Typically these will indicate directions or behaviors.
@@ -92,24 +163,27 @@ class Sprite():
 	# setAnimationSpeed(speed) – This method indicates how quickly the animation will cycle. Setting a higher value 
 	# will slow down the animation.
 	def setAnimationSpeed(self, speed):
-		pass
+		self.speed = speed
 		
 	# setCurrentCycle(cycleName) – Changes the animation cycle to the one indicated by the cycle name. 
 	# Normally used to change animation state.
-	def setCurrentCycle(self, cycleName):
-		pass
+	#def setCurrentCycle(self, cycleName):
+	#	pass
 	
 	# setCurrentCycle(cycleState) – Changes the animation cycle to the one indicated by the number. 
 	def setCurrentCycle(self, state):
-		self.animationState = state;
+		self.animationState = state
 		
 	# playAnimation() - begins (and repeats) the currently indicated animation.
 	def playAnimation(self):
-		pass
+		self.animTimer.stop()
+		self.animTimer.start(self.speed)
+		
 	
 	# pauseAnimation() - Pauses the animation until it is re-started with a playAnimation() command.
 	def pauseAnimation(self):
-		pass
+		self.animTimer.stop()
+		
 		
 	# setImage(fileName) – Another name for changeImage(). Works exactly like changeImage()
 	def setImage(self, imageFile):
@@ -137,23 +211,61 @@ class Sprite():
 		
 		self.checkBounds()
 		
+		if self.debug == True:
+			print ("update", self.animationCell) 
+			
+		
 		if self.isVisible:
 				self.draw(offX, offY)
+
+
 		
-	def draw(self, offX, offY): 
-		drawX	= self.x - int(self.width/2) - offX
-		drawY = self.y - int(self.height/2) - offY
-		
+	def draw(self, offX, offY):
+				
+		 
+		self.drawX	= self.x - int(self.width/2) - offX
+		self.drawY = self.y - int(self.height/2) - offY
+
+
+					
+
 		if self.rotated:
 			pass
 		else:
 			if self.animation == False:
 				qp = QPainter(self.scene)
-				qp.drawImage(drawX, drawY, self.file)
+				qp.drawImage(self.drawX, self.drawY, self.src)
 			else:
-				pass			
+				qp = QPainter(self.scene)
+				if self.debug == True:
+					#print("selfa:" , self.animationCell)
+					#print("test:", self.test)
+					#qp.drawImage(self.drawX, self.drawY, self.sheet[0][self.animationState])
+					#qp.drawImage(self.drawX + 80, self.drawY, self.sheet[1][self.animationState])
+					#qp.drawImage(self.drawX + 160, self.drawY, self.sheet[2][self.animationState])
+					#qp.drawImage(self.drawX + 240, self.drawY, self.sheet[3][self.animationState])
+					#qp.drawImage(self.drawX + 320, self.drawY, self.sheet[4][self.animationState])
+					qp.drawImage(QPoint(self.drawX, self.drawY), self.src, QRect(self.animationCell * self.animCellWidth, self.animCellHeight*self.animationState, self.animCellWidth, self.animCellHeight))
+									
+				else:
+					qp.drawImage(QPoint(self.drawX, self.drawY), self.src, QRect(self.animationCell * self.animCellWidth, self.animCellHeight*self.animationState, self.animCellWidth, self.animCellHeight))
+
 					
-				
+				del qp
+			
+					
+	def updateAnim(self):
+		if self.debug == True:
+			print("updateanime cell:", self.animationCell)
+		self.tick += 1
+		if self.tick >= self.animationLength:
+			
+			self.tick = 0			
+			self.AnimTask()
+			
+		return self.animationCell
+			
+						
 
 		
 	def checkBounds(self):
@@ -188,7 +300,7 @@ class Sprite():
 				self.x = leftBorder	
 			if offBottom:
 				self.y = topBorder
-				
+				print("Error")
 
 				
 		# deflects
@@ -232,7 +344,7 @@ class Sprite():
 		degrees = degrees + 90
 		return degrees
 		
-	def setMoveAngle(self):
+	def setMoveAngle(self, degrees):
 		degrees = degrees - 90
 		self.moveAngle = degrees * math.pi / 180
 		self.calcVector()
@@ -300,11 +412,11 @@ class Sprite():
 				spriteBottom = sprite.y + (sprite.height / 2)
 				
 				# assume collision
-				collision = true
+				collision = True
 				
 				# determine if there's a miss
 				if ((left > spriteRight) or (top > spriteBottom) or (right < spriteLeft) or (bottom < spriteTop)):
-					collision = false	
+					collision = False	
 
 		return collision
 
@@ -348,6 +460,35 @@ class Sprite():
 		
 
 		
-	def setSpeed(self):
-		pass
+	def setSpeed(self, speed):
+		self.currentSpeed = speed
+		self.calcVector()
+		
+	# moves the sprite to x and y coordinates
+	def setPosition(self, xNew, yNew):
+		self.x = xNew;
+		self.y = yNew;
+		
+		
+	def setCPos(self, xNew, yNew):
+		self.x = int(xNew + (self.width/2))
+		self.y = int(yNew + (self.height/2))
+		
+
+	def calcVector(self):
+		self.dx = (int(self.currentSpeed * math.cos(math.radians(self.moveAngle))))
+		self.dy = (int(self.currentSpeed * math.sin(math.radians(self.moveAngle))))
+
+
+	# changes the angle the image is drawn
+	def setImgAngle(self, degrees):
+		# offset degrees to compensate for monitor weirdness
+		degrees = degrees - 90;
+		self.imgAngle = degrees * math.pi / 180
+		
+		# process the image
+		if self.imgAngle == 0:
+			rotated = False		
+		else:
+			rotated = True
 		

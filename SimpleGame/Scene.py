@@ -5,13 +5,8 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 from PyQt5.QtCore import QTimer
 
 class Scene(QWidget):
-	
-	# class variables, instance variables, local variables, and global variables 
-	# global variables are outside of any function, method, or class definition
-	# local variables are defined inside of a function or method
-
 	# class variables
-	WRAP = 0
+	WRAP = 0; 
 	BOUNCE = 1 
 	STOP = 3
 	DIE = 4 
@@ -31,7 +26,7 @@ class Scene(QWidget):
 	
 	# slope variables
 	SLOPE_RIGHT = True
-	SLOPE_LEFT = True	
+	SLOPE_LEFT = False	
 
 
 	def __init__(self, x=600, y=400, speed=33):
@@ -87,12 +82,14 @@ class Scene(QWidget):
 	def keyPressEvent(self, event):
 		for i in range(255):
 			if KeyTbl[i] == event.key():
-				self.boardKeysDown = True
+				self.boardKeysDown[i] = True
 		
 	def keyReleaseEvent(self, event):
 		for i in range(255):
 			if KeyTbl[i] == event.key():
-				self.boardKeysDown = False
+				self.boardKeysDown[i] = False
 
-
+	def changeBoundSize(self, newWidth, newHeight):
+		self.width = newWidth
+		self.height = newHeight
 
