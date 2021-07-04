@@ -175,7 +175,7 @@ class CheesePuff(Character):
 # Animation cell: 44 x 48
 class RickAstley(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene, "sprites/henry_sheet.png", 75, 75)
+    super().__init__(thisScene, "sprites/henry_sheet.png", 88, 96)
     self.dx = 9
     self.x = 50
     self.y = 50
@@ -183,7 +183,7 @@ class RickAstley(Character):
 		#loadAnimation(sheetX, sheetY, cellX, cellY)
     self.loadAnimation(88, 96, 44, 48)
     self.generateAnimationCycles()
-    self.setAnimationSpeed(100)	# 10 times a second / ms
+    self.setAnimationSpeed(50)	# 10 times a second / ms
     self.playAnimation()
     self.boundAction = Scene.WRAP
     self.state = States.FALLING
@@ -242,7 +242,7 @@ class Kamille(Character):
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
     self.loadAnimation(320, 128, 64, 64)
     self.generateAnimationCycles()
-    self.setAnimationSpeed(100)
+    self.setAnimationSpeed(50)
     self.playAnimation()
     self.state = States.FALLING
 
@@ -288,7 +288,7 @@ class Raphael(Character):
 
     self.loadAnimation(1232, 130, 112,65)
     self.generateAnimationCycles()
-    self.setAnimationSpeed(100)
+    self.setAnimationSpeed(50)
     self.playAnimation()
     self.state = States.FALLING
 
