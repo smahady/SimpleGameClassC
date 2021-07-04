@@ -129,7 +129,7 @@ class CheesePuff(Character):
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
 		#loadAnimation(sheetX, sheetY, cellX, cellY)
-		self.loadAnimation(400, 200, 100, 50)
+		self.loadAnimation(400, 200, 100, 100)
 		self.generateAnimationCycles()
 		self.setAnimationSpeed(1000)
 		self.playAnimation()
@@ -144,24 +144,24 @@ class CheesePuff(Character):
 	# Add a method called walkBehavior. 
 	# This should check if self.scene.keysDown[Scene.K_RIGHT]is True. If so self.facing to 0, self.setCurrentCycle to 0, call the self.playAnimation method. Set the DX to a value between 0 and 10. Set a State to States.WALK
 	# If not check if self.scene.keysDown[Scene.K_LEFT] is True. If so self.facing to 1, self.setCurrentCycle to 1, call the self.playAnimation method. Set the DX to a value between 0 and -10. Set a State to States.WALK
-		def walkBehavior(self):
-			if self.scene.keysDown[Scene.K_RIGHT]:
-				self.facing = 0
-				self.setCurrentCycle(0)
-				self.playAnimation()
-				self.dx = 8
-				self.state = States.WALK
-			elif self.scene.keysDown[Scene.K_LEFT]:
-				self.facing = 1
-				self.setCurrentCycle(1)
-				self.playAnimation()
-				self.dx = -8
-				self.state = States.WALK
+	def walkBehavior(self):
+		if self.scene.keysDown[Scene.K_RIGHT]:
+			self.facing = 0
+			self.setCurrentCycle(0)
+			self.playAnimation()
+			self.dx = 8
+			self.state = States.WALK
+		elif self.scene.keysDown[Scene.K_LEFT]:
+			self.facing = 1
+			self.setCurrentCycle(1)
+			self.playAnimation()
+			self.dx = -8
+			self.state = States.WALK
 
-		def jumpBehavior(self):
-			self.stateTimer = 23
-			self.dy = -6
-			self.state = States.JUMP
+	def jumpBehavior(self):
+		self.stateTimer = 23
+		self.dy = -6
+		self.state = States.JUMP
 
 
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
@@ -257,13 +257,13 @@ def walkBehavior(self):
     self.facing = 0
     self.setCurrentCycle(0)
     self.playanimation()
-    self.dx = 6
+    self.dx = 5
     self.state = States.WALK
   elif self.scene.keysDown[Scene.K_LEFT]:
     self.facing = 1
     self.setCurrentCycle(1)
     self.playanimation()
-    self.dx = -6
+    self.dx = -5
     self.state = States.WALK
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
 def jumpBehavior(self):
