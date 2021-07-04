@@ -290,7 +290,7 @@ class Raphael(Character):
     self.generateAnimationCycles()
     self.setAnimationSpeed(100)
     self.playAnimation()
-    self.state = 
+    self.state = States.FALLING
 
   def walkBehavior(self)
     if self.scene.keysDown[Scene.K_RIGHT]:
