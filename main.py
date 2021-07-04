@@ -123,13 +123,13 @@ class Sean(Character):
 # Change arguments on the super init to 1600 x 800
 class CheesePuff(Character):
 	def __init__(self, thisScene):
-		super().__init__(thisScene, "sprites/ethan_sprite.png", 1600, 800)
+		super().__init__(thisScene, "sprites/ethan_sheet.png", 400, 200)
 		self.x = 150
 		self.y = 150
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
 		#loadAnimation(sheetX, sheetY, cellX, cellY)
-		self.loadAnimation(1600, 800, 400, 200)
+		self.loadAnimation(400, 200, 100, 50)
 		self.generateAnimationCycles()
 		self.setAnimationSpeed(1000)
 		self.playAnimation()
