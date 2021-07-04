@@ -460,17 +460,17 @@ class Game(Scene):
 
 		
 
-		self.bg0.update(self.offsetX, self.offsetY)
-		self.bg1.update(self.offsetX, self.offsetY)
-		self.bg2.update(self.offsetX, self.offsetY)
-		self.bg3.update(self.offsetX, self.offsetY)
+		self.bg0.update()
+		self.bg1.update()
+		self.bg2.update()
+		self.bg3.update()
 
-		self.ground.update(self.offsetX, self.offsetY)
+		self.ground.update()
 
-		self.sean.update(self.offsetX, self.offsetY)
-		self.kamille.update(self.offsetX, self.offsetY)
-		self.Ethan.update(self.offsetX, self.offsetY)
-		self.Rickrolled.update(self.offsetX, self.offsetY)
+		self.sean.update()
+		self.kamille.update()
+		self.Ethan.update()
+		self.Rickrolled.update()
 		self.raphael.update(self.offsetX, self.offsetY)
 		#self.sophie.update()
 		#self.CaptainPanini.update()
