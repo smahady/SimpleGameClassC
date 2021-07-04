@@ -375,7 +375,7 @@ class Game(Scene):
 		self.Ethan.update()
 		self.Rickrolled.update()
 		self.raphael.update()
-		self.sophie.update()
+		#self.sophie.update()
 		self.CaptainPanini.update()
 
 
