@@ -14,7 +14,7 @@ class States(Enum):
 	JUMP = 2
 	STAND = 3
 
-class Facing(Enum):
+class Facing():
 	RIGHT = 0
 	LEFT = 1
 
@@ -41,20 +41,19 @@ class Character(Sprite):
 		if self.state == States.FALLING:
 			if self.scene.ground.collidesWith(self):
 				self.y = self.scene.ground.y - (self.height/2 + self.scene.ground.height / 2)
-				self.standBehavior
+				self.standBehavior()
 		elif self.state == States.STAND or self.state == States.WALK:
-			if self.scene.keyDown[Scene.K_SPACE]:
-				self.jumpBehavior
-		elif self.state == States.STAND:
+			if self.scene.keysDown[Scene.K_SPACE]:
+				self.jumpBehavior()
 			if self.scene.keysDown[Scene.K_RIGHT] or self.scene.keysDown[Scene.K_LEFT]:
-				self.walkBehavior
-		elif self.state == States.WALK:
-			if (self.facing == facing.RIGHT) and (self.scene.keysDown[Scene.K_RIGHT] != True):
-				self.standBehavior
-			if (self.facing == facing.LEFT) and (self.scene.keysDown[Scene.K_LEFT] != True):
-				self.standBehavior
+				self.walkBehavior()
+			if self.state == States.WALK:
+				if (self.facing == Facing.RIGHT) and (self.scene.keysDown[Scene.K_RIGHT] == None):
+					self.standBehavior()
+				if (self.facing == Facing.LEFT) and (self.scene.keysDown[Scene.K_LEFT] == None):
+					self.standBehavior()
 		elif self.state == States.JUMP:
-			self.stateTimer -= 1
+			self.stateTimer = self.stateTimer - 1
 			if self.stateTimer < 1:
 				self.dy = self.dy * -1
 				self.state = States.FALLING
@@ -93,8 +92,8 @@ class Sean(Character):
 		self.state = States.FALLING	#falling
 
 	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[Scene.K_RIGHT]is True. If so self.facing to 0, self.setCurrentCycle to 0, call the self.playAnimation method. Set the DX to a value between 0 and 10
-	# If not check if self.scene.keysDown[Scene.K_LEFT] is True. If so self.facing to 1, self.setCurrentCycle to 1, call the self.playAnimation method. Set the DX to a value between 0 and -10
+	# This should check if self.scene.keysDown[Scene.K_RIGHT]is True. If so self.facing to 0, self.setCurrentCycle to 0, call the self.playAnimation method. Set the DX to a value between 0 and 10. Set a State to States.WALK
+	# If not check if self.scene.keysDown[Scene.K_LEFT] is True. If so self.facing to 1, self.setCurrentCycle to 1, call the self.playAnimation method. Set the DX to a value between 0 and -10. Set a State to States.WALK
 	def walkBehavior(self):
 		if self.scene.keysDown[Scene.K_RIGHT]:
 			self.facing = 0
@@ -143,8 +142,27 @@ class CheesePuff(Character):
 		super().update()
 
 	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
-	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
+	# This should check if self.scene.keysDown[Scene.K_RIGHT]is True. If so self.facing to 0, self.setCurrentCycle to 0, call the self.playAnimation method. Set the DX to a value between 0 and 10. Set a State to States.WALK
+	# If not check if self.scene.keysDown[Scene.K_LEFT] is True. If so self.facing to 1, self.setCurrentCycle to 1, call the self.playAnimation method. Set the DX to a value between 0 and -10. Set a State to States.WALK
+		def walkBehavior(self):
+		if self.scene.keysDown[Scene.K_RIGHT]:
+			self.facing = 0
+			self.setCurrentCycle(0)
+			self.playAnimation()
+			self.dx = 8
+			self.state = States.WALK
+		elif self.scene.keysDown[Scene.K_LEFT]:
+			self.facing = 1
+			self.setCurrentCycle(1)
+			self.playAnimation()
+			self.dx = -8
+			self.state = States.WALK
+
+    def jumpBehavior(self):
+      self.stateTimer = 23
+      self.dy = -6
+      self.state = States.JUMP
+
 
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
 
@@ -170,14 +188,38 @@ class RickAstley(Character):
     self.boundAction = Scene.WRAP
     self.state = States.FALLING
 
+
+    
+
     # add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
 
+  def walkBehavior(self):
+		if self.scene.keysDown[Scene.K_RIGHT]:
+			self.facing = 0
+			self.setCurrentCycle(0)
+			self.playAnimation()
+			self.dx = 9
+			self.state = States.WALK
+		elif self.scene.keysDown[Scene.K_LEFT]:
+			self.facing = 1
+			self.setCurrentCycle(1)
+			self.playAnimation()
+			self.dx = -9
+			self.state = States.WALK
+
+  def jumpBehavior(self):
+      self.stateTimer = 20
+      self.dy = -9
+      self.state = States.JUMP
+
+    
+  
   def update(self):
     super().update()
 
 	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
-	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
+	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the dx to a value between 0 and 10
+	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to dx to a value between 0 and -10
 
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
   
@@ -210,8 +252,26 @@ class Kamille(Character):
 	# Add a method called walkBehavior. 
 	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
 	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
-
+def walkBehavior(self):
+  if self.scene.keysDown[Scene.K_RIGHT]:
+    self.facing = 0
+    self.setCurrentCycle(0)
+    self.playanimation()
+    self.dx = 6
+    self.state = States.WALK
+  elif self.scene.keysDown[Scene.K_LEFT]:
+    self.facing = 1
+    self.setCurrentCycle(1)
+    self.playanimation()
+    self.dx = -6
+    self.state = States.WALK
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
+def jumpBehavior(self):
+  self.stateTimer = 21
+  self.dy = -6
+  self.state=States.JUMP
+
+
 
 #Raphael's Character
 # 112 x 67
@@ -225,9 +285,27 @@ class Raphael(Character):
     self.dx = 3
     self.dy = 3
     self.boundAction = Scene.WRAP
+
     self.loadAnimation(1232, 130, 112,65)
     self.generateAnimationCycles()
     self.setAnimationSpeed(100)
+    self.playAnimation()
+    self.state = 
+
+  def walkBehavior(self)
+    if self.scene.keysDown[Scene.K_RIGHT]:
+      self.facing = 0
+			self.setCurrentCycle()
+			self.playAnimation()
+			self.dx = 5
+			self.state = States.WALK
+		elif self.scene.keysDown[Scene.K_LEFT]:
+			self.facing = 1
+			self.setCurrentCycle(1)
+			self.playAnimation()
+			self.dx = -5
+			self.state = States.WALK
+
     
   def update(self):
     super().update()
@@ -238,7 +316,7 @@ class Raphael(Character):
 
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
 
-#Nelsun's Character
+'''#Nelsun's Character
 # 112 x 67
 # Sheet: 1232 x 130
 # Animation cell: 112x65
@@ -267,7 +345,7 @@ class SourCreamAndOnionPringles(Character):
 	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
 	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
 
-	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
+	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.'''
 
 # Make a class that inherits character
 #Sophie's Character
@@ -303,7 +381,7 @@ class SourCreamAndOnionPringles(Character):
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.'''
 
 
-# newton's sprite
+'''# newton's sprite
 # 88x64
 # 29x32
 #Newton
@@ -328,7 +406,7 @@ class slimy(Character):
 	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
 	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
 
-	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
+	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.'''
 
 
 
@@ -336,12 +414,28 @@ class slimy(Character):
 app = QApplication(sys.argv)
 
 
+class Spaceship(Sprite):
+	def __init__(self, thisScene):
+		super().__init__(thisScene, "sprites/spaceship.png", 100, 100)
+		self.x = 100
+		self.y = 100
+		self.wrap = Scene.BOUNCE
+
+	def update(self):
+		if self.drawX < 0:
+			self.dx = 10
+		if self.drawX > 600:
+			self.dx = -10
+
+		super().update()
+
 
 class Game(Scene):
 	def __init__(self):
 		super().__init__(600,600)
 
-		super().__init__(600,600)
+		self.offsetX = 0
+		self.offsetY = 0
 		self.bg0 = Background(self, "sprites/parallax-forest-back-trees.png", 1020, 600, .25, 0)
 		self.bg1 = Background(self, "sprites/parallax-forest-middle-trees.png", 1020, 600, .5, 0)		
 		self.bg2 = Background(self, "sprites/parallax-forest-front-trees.png", 1020, 600, .75, 0)
@@ -351,34 +445,37 @@ class Game(Scene):
 		self.ground = Ground(self)
 
 		self.sean = Sean(self)
-		self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
+		#self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
 		self.kamille = Kamille(self)
 		self.Rickrolled = RickAstley(self)
 		self.raphael = Raphael(self)
 		self.Ethan = CheesePuff(self)	#CheesePuff
+		#self.CaptainPanini = CaptainPanini(self)
 		#self.sophie = Sophie(self)
 
-
+		self.spaceship = Spaceship(self)
 
 		
 	def updateGame(self):
 
-		self.bg0.update()
-		self.bg1.update()
-		self.bg2.update()
-		self.bg3.update()
+		
 
-		self.ground.update()
+		self.bg0.update(self.offsetX, self.offsetY)
+		self.bg1.update(self.offsetX, self.offsetY)
+		self.bg2.update(self.offsetX, self.offsetY)
+		self.bg3.update(self.offsetX, self.offsetY)
 
-		self.sean.update()
-		self.kamille.update()
-		self.Ethan.update()
-		self.Rickrolled.update()
-		self.raphael.update()
+		self.ground.update(self.offsetX, self.offsetY)
+
+		self.sean.update(self.offsetX, self.offsetY)
+		self.kamille.update(self.offsetX, self.offsetY)
+		self.Ethan.update(self.offsetX, self.offsetY)
+		self.Rickrolled.update(self.offsetX, self.offsetY)
+		self.raphael.update(self.offsetX, self.offsetY)
 		#self.sophie.update()
-		self.CaptainPanini.update()
+		#self.CaptainPanini.update()
 
-
+		self.spaceship.update(self.offsetX, self.offsetY)
 		
 
 
