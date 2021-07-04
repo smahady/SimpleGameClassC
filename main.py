@@ -292,7 +292,7 @@ class Raphael(Character):
     self.playAnimation()
     self.state = States.FALLING
 
-  def walkBehavior(self)
+  def walkBehavior(self):
     if self.scene.keysDown[Scene.K_RIGHT]:
       self.facing = 0
 			self.setCurrentCycle()
