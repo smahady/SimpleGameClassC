@@ -208,9 +208,9 @@ class RickAstley(Character):
       self.state = States.WALK
 
   def jumpBehavior(self):
-  self.stateTimer = 20
-      self.dy = -9
-      self.state = States.JUMP
+    self.stateTimer = 20
+    self.dy = -9
+    self.state = States.JUMP
 
     
   
