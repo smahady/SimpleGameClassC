@@ -356,7 +356,7 @@ class Game(Scene):
 		self.Rickrolled = RickAstley(self)
 		self.raphael = Raphael(self)
 		self.Ethan = CheesePuff(self)	#CheesePuff
-		self.Sophie = Sophie(self)
+		self.sophie = Sophie(self)
 
 
 
@@ -375,7 +375,7 @@ class Game(Scene):
 		self.Ethan.update()
 		self.Rickrolled.update()
 		self.raphael.update()
-		self.Sophie.update()
+		self.sophie.update()
 		self.CaptainPanini.update()
 
 
