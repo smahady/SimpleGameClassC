@@ -471,11 +471,11 @@ class Game(Scene):
 		self.kamille.update()
 		self.Ethan.update()
 		self.Rickrolled.update()
-		self.raphael.update(self.offsetX, self.offsetY)
+		self.raphael.update()
 		#self.sophie.update()
 		#self.CaptainPanini.update()
 
-		self.spaceship.update(self.offsetX, self.offsetY)
+		self.spaceship.update()
 		
 
 
