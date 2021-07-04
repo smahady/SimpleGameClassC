@@ -194,21 +194,21 @@ class RickAstley(Character):
     # add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
 
   def walkBehavior(self):
-		if self.scene.keysDown[Scene.K_RIGHT]:
-			self.facing = 0
-			self.setCurrentCycle(0)
-			self.playAnimation()
-			self.dx = 9
-			self.state = States.WALK
-		elif self.scene.keysDown[Scene.K_LEFT]:
-			self.facing = 1
-			self.setCurrentCycle(1)
-			self.playAnimation()
-			self.dx = -9
-			self.state = States.WALK
+    if self.scene.keysDown[Scene.K_RIGHT]:
+      self.facing = 0
+      self.setCurrentCycle(0)
+      self.playAnimation()
+      self.dx = 9
+      self.state = States.WALK
+    elif self.scene.keysDown[Scene.K_LEFT]:
+      self.facing = 1
+      self.setCurrentCycle(1)
+      self.playAnimation()
+      self.dx = -9
+      self.state = States.WALK
 
   def jumpBehavior(self):
-      self.stateTimer = 20
+  self.stateTimer = 20
       self.dy = -9
       self.state = States.JUMP
 
