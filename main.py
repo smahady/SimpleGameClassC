@@ -256,20 +256,20 @@ class Kamille(Character):
     if self.scene.keysDown[Scene.K_RIGHT]:
       self.facing = 0
       self.setCurrentCycle(0)
-      self.playanimation()
+      self.playAnimation()
       self.dx = 5
       self.state = States.WALK
     elif self.scene.keysDown[Scene.K_LEFT]:
       self.facing = 1
       self.setCurrentCycle(1)
-      self.playanimation()
+      self.playAnimation()
       self.dx = -5
       self.state = States.WALK
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
   def jumpBehavior(self):
     self.stateTimer = 21
     self.dy = -5
-   self.state=States.JUMP
+    self.state=States.JUMP
 
 
 
