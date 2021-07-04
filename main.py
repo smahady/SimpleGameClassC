@@ -419,7 +419,7 @@ class Spaceship(Sprite):
 		super().__init__(thisScene, "sprites/spaceship.png", 100, 100)
 		self.x = 100
 		self.y = 100
-		self.dx=10
+		self.dx=5
 		self.wrap = Scene.BOUNCE
 
 	def update(self):
