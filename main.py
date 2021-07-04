@@ -1,4 +1,4 @@
-import sys
+import sys 
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 #from PyQt5.QtGui import QIcon
 #from PyQt5.QtCore import pyqtSlot
@@ -199,7 +199,7 @@ class Kamille(Character):
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
     self.loadAnimation(320, 128, 64, 64)
-    self.generateAnimationCycles(320, 128, 64, 64)
+    self.generateAnimationCycles()
     self.setAnimationSpeed(100)
     self.playAnimation()
     self.state = States.FALLING
