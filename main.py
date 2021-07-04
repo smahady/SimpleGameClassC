@@ -175,7 +175,7 @@ class CheesePuff(Character):
 # Animation cell: 44 x 48
 class RickAstley(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene, "sprites/henry_sprite.png", 75, 75)
+    super().__init__(thisScene, "sprites/henry_sheet.png", 75, 75)
     self.dx = 9
     self.x = 50
     self.y = 50
@@ -232,7 +232,7 @@ class RickAstley(Character):
 # change super init arguments to 320 x 128
 class Kamille(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene, "sprites/kamille_sprite.png", 320, 128)
+    super().__init__(thisScene, "sprites/kamille_sheet.png", 320, 128)
     self.x = 70
     self.y = 70
     self.dx += 5
@@ -279,7 +279,7 @@ def jumpBehavior(self):
 # Animation cell: 112x65
 class Raphael(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene,"sprites/raphael_sprite.png", 1232, 130)
+    super().__init__(thisScene,"sprites/raphael_sheet.png", 1232, 130)
     self.x = 65
     self.y = 65
     self.dx = 3
