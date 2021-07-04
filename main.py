@@ -158,10 +158,10 @@ class CheesePuff(Character):
 				self.dx = -8
 				self.state = States.WALK
 
-    def jumpBehavior(self):
-      self.stateTimer = 23
-      self.dy = -6
-      self.state = States.JUMP
+		def jumpBehavior(self):
+			self.stateTimer = 23
+			self.dy = -6
+			self.state = States.JUMP
 
 
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
@@ -268,7 +268,7 @@ def walkBehavior(self):
 	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
 def jumpBehavior(self):
   self.stateTimer = 21
-  self.dy = -6
+  self.dy = -7
   self.state=States.JUMP
 
 
