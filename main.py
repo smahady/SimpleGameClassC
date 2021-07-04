@@ -356,7 +356,7 @@ class Game(Scene):
 		self.Rickrolled = RickAstley(self)
 		self.raphael = Raphael(self)
 		self.Ethan = CheesePuff(self)	#CheesePuff
-		self.sophie = Sophie(self)
+		#self.sophie = Sophie(self)
 
 
 
