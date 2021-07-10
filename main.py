@@ -168,19 +168,19 @@ class CheesePuff(Character):
 
 #Henry's Character
 # 75 x 75
-#Sheet : 88 x 96 
+#Sheet : 176 x 192 
 # Animation cell: 44 x 48
 class RickAstley(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene, "sprites/henry_sheet.png", 88, 96)
+    super().__init__(thisScene, "sprites/henry_sheet.png", 176, 192)
     self.dx = 9
     self.x = 50
     self.y = 50
     self.dy = 9
 		#loadAnimation(sheetX, sheetY, cellX, cellY)
-    self.loadAnimation(88, 96, 44, 48)
+    self.loadAnimation(176, 192, 88, 96)
     self.generateAnimationCycles()
-    self.setAnimationSpeed(50)	# 10 times a second / ms
+    self.setAnimationSpeed(30)	
     self.playAnimation()
     self.boundAction = Scene.WRAP
     self.state = States.FALLING
