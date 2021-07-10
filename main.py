@@ -214,11 +214,7 @@ class RickAstley(Character):
   def update(self, offsetX, offsetY):
     super().update(offsetX, offsetY)
 
-	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the dx to a value between 0 and 10
-	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to dx to a value between 0 and -10
 
-	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
   
 
 
@@ -239,7 +235,7 @@ class Kamille(Character):
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
     self.loadAnimation(320, 128, 64, 64)
     self.generateAnimationCycles()
-    self.setAnimationSpeed(50)
+    self.setAnimationSpeed(30)
     self.playAnimation()
     self.state = States.FALLING
 
