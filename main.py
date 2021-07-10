@@ -372,12 +372,12 @@ class Sophie(Character):
     self.state = States.FALLING
 
   def walkBehavior(self):
-    if self.scene.keysDown[K-RIGHT]:
+    if self.scene.keysDown[Scene.K_RIGHT]:
       self.facing = Facing.RIGHT
       self.setCurrentCycle(Facing.RIGHT)
       self.playAnimation()
       self.dx = 3
-    elif self.scene.keysDown[K-LEFT]:
+    elif self.scene.keysDown[Scene.K_LEFT]:
       self.facing = Facing.LEFT
       self.setCurrentCycle(Facing.LEFT)
       self.playAnimation()
