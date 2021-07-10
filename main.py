@@ -304,7 +304,7 @@ class Raphael(Character):
     super().update(offsetX, offsetY)
 
   def jumpBehavior(self):
-    self.startTimer = 50
+    self.startTimer = 25
     self.dy = -6
 
 
