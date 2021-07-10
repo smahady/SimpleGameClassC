@@ -36,18 +36,18 @@ class Character(Sprite):
 		super().__init__(thisScene, sprite, x, y)
 		self.stateTimer = 0
 		self.dy = 7 
+		self.setBoundAction(Scene.CONTINUE)
 		
-	def update(self, offsetX, offsetY):
+	def update(self, offsetX = 0, offsetY = 0):
 		if self.state == States.FALLING:
 			if self.scene.ground.collidesWith(self):
-				self.y = self.scene.ground.y - (self.height/2 + self.scene.ground.height / 2)
 				self.standBehavior()
 		elif self.state == States.STAND or self.state == States.WALK:
 			if self.scene.keysDown[Scene.K_SPACE]:
 				self.jumpBehavior()
-			if self.scene.keysDown[Scene.K_RIGHT] or self.scene.keysDown[Scene.K_LEFT]:
+			elif self.scene.keysDown[Scene.K_RIGHT] or self.scene.keysDown[Scene.K_LEFT]:
 				self.walkBehavior()
-			if self.state == States.WALK:
+			elif self.state == States.WALK:
 				if (self.facing == Facing.RIGHT) and (self.scene.keysDown[Scene.K_RIGHT] == None):
 					self.standBehavior()
 				if (self.facing == Facing.LEFT) and (self.scene.keysDown[Scene.K_LEFT] == None):
