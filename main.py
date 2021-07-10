@@ -303,11 +303,10 @@ class Raphael(Character):
   def update(self, offsetX, offsetY):
     super().update(offsetX, offsetY)
 
-	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
-	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
+  def jumpBehavior(self):
+    self.startTimer = 50
+    self.dy = -6
 
-	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
 
 # Nelsun's Character
 # 112 x 67
@@ -379,8 +378,8 @@ class Sophie(Character):
   def jumpBehavior(self):
     self.startTimer = 50
     self.dy = -6
-    def update(self, offsetX, offsetY):
-      super().update(offsetX, offsetY)
+  def update(self, offsetX, offsetY):
+    super().update(offsetX, offsetY)
 
 
 
