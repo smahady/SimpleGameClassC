@@ -25,9 +25,9 @@ class Ground(Block):
 		self.x = 0
 		self.y = 500
 		
-	def update(self):
+	def update(self, offsetX, offsetY):
 				
-		super().update()
+		super().update(offsetX, offsetY)
 
 class Character(Sprite):
 	def __init__(self, thisScene, sprite, x, y):
