@@ -306,6 +306,7 @@ class Raphael(Character):
   def jumpBehavior(self):
     self.startTimer = 25
     self.dy = -6
+		self.state = States.JUMP
 
 
 # Nelsun's Character
