@@ -364,29 +364,25 @@ class Sophie(Character):
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
     self.loadAnimation(144, 64, 48, 32)
     self.generateAnimationCycles()
-    self.SrtAnimationSpeed(100)
+    self.setAnimationSpeed(30)
     self.playAnimation()
     self.dx = 1
     self.dy = -1
     self.boundAction = Scene.WRAP
     self.state = States.FALLING
-			
-	# Add a method called walkBehavior. 
-  # This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
-  # If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
+
   def walkBehavior(self):
     if self.scene.keysDown[K-RIGHT]:
       self.facing = Facing.RIGHT
       self.setCurrentCycle(Facing.RIGHT)
-      self.startAnimation()
+      self.playAnimation()
       self.dx = 3
     elif self.scene.keysDown[K-LEFT]:
       self.facing = Facing.LEFT
       self.setCurrentCycle(Facing.LEFT)
-      self.startAnimation()
+      self.playAnimation()
       self.dx = -3
-  
-  # Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
+
   def jumpBehavior(self):
     self.startTimer = 50
     self.dy = -6
