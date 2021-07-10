@@ -281,7 +281,7 @@ class Raphael(Character):
 
     self.loadAnimation(1232, 130, 112,65)
     self.generateAnimationCycles()
-    self.setAnimationSpeed(50)
+    self.setAnimationSpeed(30)
     self.playAnimation()
     self.state = States.FALLING
 
