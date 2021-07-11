@@ -373,7 +373,7 @@ class SourCreamAndOnionPringles(Character):
       self.state = States.WALK
 
   def jumpBehavior(self):
-    self.timer = 49	#set this, any number 50 or less
+    self.stateTimer = 49	#set this, any number 50 or less
     self.dy = -9	#set this, should be negative
     self.state = States.JUMP
   def update(self, offsetX, offsetY):
@@ -418,7 +418,7 @@ class Sophie(Character):
       self.state = States.WALK
 
   def jumpBehavior(self):
-    self.timer = 50
+    self.stateTimer = 50
     self.dy = -6
     self.state = States.JUMP
   def update(self, offsetX, offsetY):
