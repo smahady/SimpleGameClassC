@@ -351,7 +351,6 @@ class Sophie(Character):
     self.x += 75
     self.y += 50
     self.dx = 1
-    self.dy = -1
     self.boundAction = Scene.WRAP
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
@@ -360,7 +359,7 @@ class Sophie(Character):
     self.setAnimationSpeed(30)
     self.playAnimation()
     self.dx = 1
-    self.dy = -1
+    self.dy = 6
     self.boundAction = Scene.WRAP
     self.state = States.FALLING
 
