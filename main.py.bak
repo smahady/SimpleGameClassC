@@ -433,11 +433,11 @@ class Game(Scene):
 		self.ground = Ground(self)
 
 		self.sean = Sean(self)
-		self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
-		#self.kamille = Kamille(self)
-		#self.Rickrolled = RickAstley(self)
-		#self.raphael = Raphael(self)
-		#self.Ethan = CheesePuff(self)	#CheesePuff
+		#self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
+		self.kamille = Kamille(self)
+		self.Rickrolled = RickAstley(self)
+		self.raphael = Raphael(self)
+		self.Ethan = CheesePuff(self)	#CheesePuff
 		#self.CaptainPanini = CaptainPanini(self)
 		self.sophie = Sophie(self)
 
@@ -455,12 +455,11 @@ class Game(Scene):
 
 		self.ground.update(self.offsetX, self.offsetY)
 
-		self.SourCreamAndOnionPringles.update(self.offsetX, self.offsetY)
 		self.sean.update(self.offsetX, self.offsetY)
-		#self.kamille.update(self.offsetX, self.offsetY)
-		#self.Ethan.update(self.offsetX, self.offsetY)
-		#self.Rickrolled.update(self.offsetX, self.offsetY)
-		#self.raphael.update(self.offsetX, self.offsetY)
+		self.kamille.update(self.offsetX, self.offsetY)
+		self.Ethan.update(self.offsetX, self.offsetY)
+		self.Rickrolled.update(self.offsetX, self.offsetY)
+		self.raphael.update(self.offsetX, self.offsetY)
 		self.sophie.update(self.offsetX, self.offsetY)
 
 
@@ -540,8 +539,3 @@ for chara in arr:
 # 125 x 123
 #https://opengameart.org/content/astronaut-4
 #sprite sheet by gamer805'''''
-
-
-
-
-
