@@ -497,7 +497,7 @@ class FlyingEnemy(BaseEnemy):
 		if decision ==1:
 			movementX = 0
 			movementY = 0
-			
+
 			# find out if the main character is to the left of the enemy
 			if self.scene.main.x < self.x:
 				movementX = -1
@@ -572,6 +572,11 @@ class Game(Scene):
 		self.spaceship.update(self.offsetX, self.offsetY)
 
 		self.camera.update()
+
+		for enemy in self.spaceship.enemies:
+			if enemy.distanceTo(self.main) <50:
+				print("You died!")
+				self.stop()
 
 
 		
