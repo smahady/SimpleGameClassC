@@ -345,24 +345,40 @@ class SourCreamAndOnionPringles(Character):
 
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
-    self.boundAction = Scene.WRAP
+
     self.loadAnimation(1232, 130, 112,65)
     self.generateAnimationCycles()
     self.setAnimationSpeed(1000)
     self.playAnimation()
     self.dx = 10
     self.dy = 8	
-    self.boundAction = Scene.WRAP
+
     self.state = States.FALLING
 
   def update(self, offsetX, offsetY):
     super().update(offsetX, offsetY)
 
-	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
-	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
+  def walkBehavior(self):
+    if self.scene.keysDown[Scene.K_RIGHT]:
+      self.facing = Facing.RIGHT
+      self.setCurrentCycle(Facing.RIGHT)
+      self.playAnimation()
+      self.dx = 6	#set this, should be positive
+      self.state = States.WALK
+    elif self.scene.keysDown[Scene.K_LEFT]:
+      self.facing = Facing.LEFT
+      self.setCurrentCycle(Facing.LEFT)
+      self.playAnimation()
+      self.dx = -5	#set this, should be negative
+      self.state = States.WALK
 
-	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
+  def jumpBehavior(self):
+    self.timer = 49	#set this, any number 50 or less
+    self.dy = -9	#set this, should be negative
+    self.state = States.JUMP
+  def update(self, offsetX, offsetY):
+    super().update(offsetX, offsetY)
+
 
 # Make a class that inherits character
 #Sophie's Character
@@ -402,7 +418,7 @@ class Sophie(Character):
       self.state = States.WALK
 
   def jumpBehavior(self):
-    self.startTimer = 50
+    self.timer = 50
     self.dy = -6
     self.state = States.JUMP
   def update(self, offsetX, offsetY):
