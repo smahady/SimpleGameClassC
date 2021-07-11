@@ -369,15 +369,18 @@ class Sophie(Character):
       self.setCurrentCycle(Facing.RIGHT)
       self.playAnimation()
       self.dx = 3
+			self.state = States.WALK
     elif self.scene.keysDown[Scene.K_LEFT]:
       self.facing = Facing.LEFT
       self.setCurrentCycle(Facing.LEFT)
       self.playAnimation()
       self.dx = -3
+			self.state = States.WALK
 
   def jumpBehavior(self):
     self.startTimer = 50
     self.dy = -6
+		self.state = States.JUMP
   def update(self, offsetX, offsetY):
     super().update(offsetX, offsetY)
 
