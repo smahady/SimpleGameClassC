@@ -495,6 +495,8 @@ class FlyingEnemy(BaseEnemy):
 			self.dx = random.randint(-5, 5)
 			self.dy = random.randint(-5, 5)
 		if decision ==1:
+			movementX = 0
+			movementY = 0
 			
 			# find out if the main character is to the left of the enemy
 			if self.scene.main.x < self.x:
