@@ -339,14 +339,14 @@ class Raphael(Character):
 # Animation cell: 112x65
 class SourCreamAndOnionPringles(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene,"sprites/nelsun_sprite.png" , 1232, 130) # change to sheet size
+    super().__init__(thisScene,"sprites/nelsun_sheet.png", 1232, 130) # change to sheet size
     self.x += 60
     self.y += 60
 
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
     self.boundAction = Scene.WRAP
-    self.loadAnimation(1232, 130, 112, 65)
+    self.loadAnimation(1232, 130, 112,65)
     self.generateAnimationCycles()
     self.setAnimationSpeed(1000)
     self.playAnimation()
@@ -483,11 +483,37 @@ class GroundEnemy(BaseEnemy):
 
 class FlyingEnemy(BaseEnemy):
 	def __init__(self, thisScene, x, y):
-		super().__init__(thisScene, "sprites/egg3.png", 128, 128, x, y)
+		super().__init__(thisScene, "sprites/birb.png", 100, 73, x, y)
+		self.dy = 0
 	def update(self, offsetX, offsetY):
 		super().update(offsetX, offsetY)
 	def makeDecision(self):
-		self.dy = 3
+		self.timer = 5
+		decision = random.randint(0,1)	
+		# decision 1, fly after main character
+		if decision == 0:
+			self.dx = random.randint(-5, 5)
+			self.dy = random.randint(-5, 5)
+		if decision ==1:
+			
+			# find out if the main character is to the left of the enemy
+			if self.scene.main.x < self.x:
+				movementX = -1
+			# find out if the main character is to the right of the enemy - nelsun
+      if self.scene.main.x > self.x :
+        movementX  = 1
+			
+			# find out if the main character is underneath the enemy (hint check y)	- sophie
+      if self.scene.main.y < self.y:
+        movementY = -1
+			
+			# find out if the main character is above of the enemy 
+			if self.scene.main.y > self.y:
+				movementY = 1			
+
+			# move at random speed
+			self.dx = (random.randint(0,5) * movementX)
+			self.dy = (random.randint(0,5) * movementY)								
 
 class Game(Scene):
 	def __init__(self):
