@@ -347,7 +347,7 @@ class SourCreamAndOnionPringles(Character):
 # cell: 48x32
 class Sophie(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene, "sprites/sophie_sprite.png", 144, 64)
+    super().__init__(thisScene, "sprites/sophie_sheet.png", 144, 64)
     self.x += 75
     self.y += 50
     self.dx = 1
