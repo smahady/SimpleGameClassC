@@ -495,12 +495,12 @@ class GroundEnemy(BaseEnemy):
 				movementY = 0
 
 				#find out if the main character is to the left of the enemy, if so move toward them - Kamille
-      if self.scene.main.x < self.x:
-        movementX = -1
+				if self.scene.main.x < self.x:
+					movementX = -1
 
 				# find out if the main character is to the right of the enemy, if so move toward them - Raphael
-      if self.scene.main.x > self.:
-        movementX = 1
+				if self.scene.main.x > self.:
+					movementX = 1
 				
 				# move at random speed 
 				self.dx = (random.randint(0,5) * movementX)				
