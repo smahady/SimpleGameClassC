@@ -513,7 +513,7 @@ class FlyingEnemy(BaseEnemy):
 
 			# find out if the main character is above of the enemy - Kamille
 			if self.scene.main.y > self.y:
-      movementY = 1	
+				movementY = 1	
 
 			# move at random speed 
 			self.dx = (random.randint(0,5) * movementX)
