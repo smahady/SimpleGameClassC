@@ -7,6 +7,9 @@ from SimpleGame.Sprite import Sprite
 from SimpleGame.Block import Block
 from SimpleGame.Background import Background
 from enum import Enum
+import random
+
+
 
 class States(Enum):
 	FALLING = 0
@@ -17,6 +20,27 @@ class States(Enum):
 class Facing():
 	RIGHT = 0
 	LEFT = 1
+
+class Camera():
+	def __init__(self, thisScene):
+		self.viewWidth = Scene.width
+		self.viewHeight = Scene.height
+		self.scene = thisScene
+
+	def follow(self, sprite):
+		self.sprite = sprite
+
+	def update(self):
+		if self.sprite.drawX < 250:
+			if self.sprite.x < 300:
+				self.sprite.x = 300
+			else:
+				self.scene.offsetX -= 6
+		if self.sprite.drawX > (350):
+			if self.sprite.x > (26*120):
+				self.sprite.x = (26*120)
+			else:
+				self.scene.offsetX += 6
 
 class Ground(Block):
 	def __init__(self, thisScene):
@@ -123,13 +147,13 @@ class Sean(Character):
 # Change arguments on the super init to 1600 x 800
 class CheesePuff(Character):
 	def __init__(self, thisScene):
-		super().__init__(thisScene, "sprites/ethan_sheet.png", 400, 200)
+		super().__init__(thisScene, "sprites/ethan_sheet.png", 1600, 800)
 		self.x = 150
 		self.y = 150
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
 		#loadAnimation(sheetX, sheetY, cellX, cellY)
-		self.loadAnimation(400, 200, 100, 100)
+		self.loadAnimation(1600, 800, 200, 200)
 		self.generateAnimationCycles()
 		self.setAnimationSpeed(30)
 		self.playAnimation()
@@ -315,30 +339,46 @@ class Raphael(Character):
 # Animation cell: 112x65
 class SourCreamAndOnionPringles(Character):
   def __init__(self, thisScene):
-    super().__init__(thisScene,"sprites/nelsun_sprite.png" , 1232, 130) # change to sheet size
+    super().__init__(thisScene,"sprites/nelsun_sheet.png", 1232, 130) # change to sheet size
     self.x += 60
     self.y += 60
 
 
 		# add loadAnimation, generateAnimation, setAnimationSpeed, and playAnimation methods
-    self.boundAction = Scene.WRAP
-    self.loadAnimation(1232, 130, 112, 65)
+
+    self.loadAnimation(1232, 130, 112,65)
     self.generateAnimationCycles()
     self.setAnimationSpeed(1000)
     self.playAnimation()
     self.dx = 10
     self.dy = 8	
-    self.boundAction = Scene.WRAP
+
     self.state = States.FALLING
 
   def update(self, offsetX, offsetY):
     super().update(offsetX, offsetY)
 
-	# Add a method called walkBehavior. 
-	# This should check if self.scene.keysDown[K_RIGHT]is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and 10
-	# If not check if self.scene.keysDown[K_LEFT] is True. If so self.facing to Facing.RIGHT, self.setCurrentCycle to Facing.RIGHT, call the self.startAnimation method. Set the DX to a value between 0 and -10
+  def walkBehavior(self):
+    if self.scene.keysDown[Scene.K_RIGHT]:
+      self.facing = Facing.RIGHT
+      self.setCurrentCycle(Facing.RIGHT)
+      self.playAnimation()
+      self.dx = 6	#set this, should be positive
+      self.state = States.WALK
+    elif self.scene.keysDown[Scene.K_LEFT]:
+      self.facing = Facing.LEFT
+      self.setCurrentCycle(Facing.LEFT)
+      self.playAnimation()
+      self.dx = -5	#set this, should be negative
+      self.state = States.WALK
 
-	# Add a method called jumpBehavior. This should set the dy to a negative number (moving up), and set the stateTimer to the number of frames before falling.
+  def jumpBehavior(self):
+    self.stateTimer = 49	#set this, any number 50 or less
+    self.dy = -9	#set this, should be negative
+    self.state = States.JUMP
+  def update(self, offsetX, offsetY):
+    super().update(offsetX, offsetY)
+
 
 # Make a class that inherits character
 #Sophie's Character
@@ -378,7 +418,7 @@ class Sophie(Character):
       self.state = States.WALK
 
   def jumpBehavior(self):
-    self.startTimer = 50
+    self.stateTimer = 50
     self.dy = -6
     self.state = States.JUMP
   def update(self, offsetX, offsetY):
@@ -409,18 +449,120 @@ class Spaceship(Sprite):
 			self.timer = 60
 			self.enemySpawn()
 
-		#for enemy in self.enemies:
-		#	enemy.update(self.scene.offsetX, self.scene.offsetY)
+		for enemy in self.enemies:
+			enemy.update(self.scene.offsetX, self.scene.offsetY)
 
 	def enemySpawn(self):
-		pass
+		temp = random.randint(0,2)
+		newEnemy = 0
+		if temp == 0:
+			newEnemy = Enemy(self.scene, self.x, self.y)
+		elif temp==1:
+			newEnemy = GroundEnemy(self.scene, self.x, self.y)
+		elif temp ==2:
+			newEnemy = FlyingEnemy(self.scene, self.x, self.y)
+		self.enemies.append(newEnemy)
 
+# Abstract base class
+class BaseEnemy(Sprite):
+	def __init__(self, thisScene, file, width, height, x, y):
+		super().__init__(thisScene, file, width, height)
+		self.setBoundAction(Scene.DIE)
+		self.x = x
+		self.y = y
+		self.dy = 3
+		self.timer = 120
+	def update(self, offsetX, offsetY):
+		self.timer -= 1
+		if self.timer < 1:
+			self.makeDecision()
+		super().update(offsetX, offsetY)
+	def makeDecision(self):
+		pass	
+
+class Enemy(BaseEnemy):
+	def __init__(self, thisScene, x, y):
+		super().__init__(thisScene, "sprites/egg3.png", 128, 128, x, y)
+	def update(self, offsetX, offsetY):
+		super().update(offsetX, offsetY)
+	def makeDecision(self):
+		self.dy = 3
+		self.timer = 120
+
+class GroundEnemy(BaseEnemy):
+	def __init__(self, thisScene, x, y):
+		super().__init__(thisScene, "sprites/snek.png", 100, 100, x, y)
+		self.state = States.FALLING
+	def update(self, offsetX, offsetY):
+		super().update(offsetX, offsetY)
+		if self.state == States.FALLING:
+			if self.scene.ground.collidesWith(self):
+				self.state = States.STAND
+				self.dy = 0	
+	def makeDecision(self):
+		self.stateTimer = 10
+		decision = random.randint(0,1)	
+		# decision 1, fly after main character
+		if decision == 0:
+			self.dx = random.randint(-5, 5)
+			self.dy = random.randint(-5, 5)
+		if decision ==1:
+			movementX = 0
+			movementY = 0
+
+			# find out if the main character is to the left of the enemy
+			if self.scene.main.x < self.x:
+				movementX = -1
+			# find out if the main character is to the right of the enemy - nelsun
+			if self.scene.main.x > self.x :
+				movementX  = 1
+			# move at random speed 
+			self.dx = (random.randint(0,5) * movementX)
+		
+
+class FlyingEnemy(BaseEnemy):
+	def __init__(self, thisScene, x, y):
+		super().__init__(thisScene, "sprites/birb.png", 100, 73, x, y)
+		self.dy = 0
+	def update(self, offsetX, offsetY):
+		super().update(offsetX, offsetY)
+	def makeDecision(self):
+		self.timer = 5
+		decision = random.randint(0,1)	
+		# decision 1, fly after main character
+		if decision == 0:
+			self.dx = random.randint(-5, 5)
+			self.dy = random.randint(-5, 5)
+		if decision ==1:
+			movementX = 0
+			movementY = 0
+
+			# find out if the main character is to the left of the enemy
+			if self.scene.main.x < self.x:
+				movementX = -1
+			# find out if the main character is to the right of the enemy - nelsun
+			if self.scene.main.x > self.x :
+				movementX  = 1
+			
+			# find out if the main character is underneath the enemy (hint check y)	- sophie
+			if self.scene.main.y < self.y:
+				movementY = -1
+			
+			# find out if the main character is above of the enemy 
+			if self.scene.main.y > self.y:
+				movementY = 1			
+
+			# move at random speed 
+			self.dx = (random.randint(0,5) * movementX)
+			self.dy = (random.randint(0,5) * movementY)								
 
 class Game(Scene):
 	def __init__(self):
 		super().__init__(600,600)
+		self.camera = Camera(self)
 
-		#self.changeBoundSize(4096, 600)
+		self.changeBoundSize((25*120), 600)
+
 
 		self.offsetX = 20
 		self.offsetY = 20
@@ -432,21 +574,21 @@ class Game(Scene):
 
 		self.ground = Ground(self)
 
-		self.sean = Sean(self)
-		#self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
-		self.kamille = Kamille(self)
-		self.Rickrolled = RickAstley(self)
-		self.raphael = Raphael(self)
-		self.Ethan = CheesePuff(self)	#CheesePuff
+		self.main = Sean(self)
+		self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
+		#self.kamille = Kamille(self)
+		#self.Rickrolled = RickAstley(self)
+		#self.raphael = Raphael(self)
+		#self.Ethan = CheesePuff(self)	#CheesePuff
 		#self.CaptainPanini = CaptainPanini(self)
 		self.sophie = Sophie(self)
 
 		self.spaceship = Spaceship(self)
-
+		self.camera.follow(self.main)
 		
 	def updateGame(self):
 
-		
+
 
 		self.bg0.update(self.offsetX, self.offsetY)
 		self.bg1.update(self.offsetX, self.offsetY)
@@ -455,17 +597,27 @@ class Game(Scene):
 
 		self.ground.update(self.offsetX, self.offsetY)
 
-		self.sean.update(self.offsetX, self.offsetY)
-		self.kamille.update(self.offsetX, self.offsetY)
-		self.Ethan.update(self.offsetX, self.offsetY)
-		self.Rickrolled.update(self.offsetX, self.offsetY)
-		self.raphael.update(self.offsetX, self.offsetY)
+		self.SourCreamAndOnionPringles.update(self.offsetX, self.offsetY)
+		self.main.update(self.offsetX, self.offsetY)
+		#self.kamille.update(self.offsetX, self.offsetY)
+		#self.Ethan.update(self.offsetX, self.offsetY)
+		#self.Rickrolled.update(self.offsetX, self.offsetY)
+		#self.raphael.update(self.offsetX, self.offsetY)
 		self.sophie.update(self.offsetX, self.offsetY)
 
 
 
 
 		self.spaceship.update(self.offsetX, self.offsetY)
+
+		self.camera.update()
+
+		for enemy in self.spaceship.enemies:
+			if enemy.distanceTo(self.main) <50:
+				print("You died!")
+				self.stop()
+
+
 		
 
 
@@ -539,8 +691,3 @@ for chara in arr:
 # 125 x 123
 #https://opengameart.org/content/astronaut-4
 #sprite sheet by gamer805'''''
-
-
-
-
-
