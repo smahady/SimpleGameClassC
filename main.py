@@ -435,11 +435,11 @@ class Game(Scene):
 		self.sean = Sean(self)
 		#self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
 		self.kamille = Kamille(self)
-		self.Rickrolled = RickAstley(self)
+		#self.Rickrolled = RickAstley(self)
 		self.raphael = Raphael(self)
-		self.Ethan = CheesePuff(self)	#CheesePuff
+		#self.Ethan = CheesePuff(self)	#CheesePuff
 		#self.CaptainPanini = CaptainPanini(self)
-		self.sophie = Sophie(self)
+		#self.sophie = Sophie(self)
 
 		self.spaceship = Spaceship(self)
 
@@ -457,10 +457,10 @@ class Game(Scene):
 
 		self.sean.update(self.offsetX, self.offsetY)
 		self.kamille.update(self.offsetX, self.offsetY)
-		self.Ethan.update(self.offsetX, self.offsetY)
-		self.Rickrolled.update(self.offsetX, self.offsetY)
+		#self.Ethan.update(self.offsetX, self.offsetY)
+		#self.Rickrolled.update(self.offsetX, self.offsetY)
 		self.raphael.update(self.offsetX, self.offsetY)
-		self.sophie.update(self.offsetX, self.offsetY)
+		#self.sophie.update(self.offsetX, self.offsetY)
 
 
 
