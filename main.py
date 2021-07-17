@@ -477,6 +477,7 @@ class Enemy(BaseEnemy):
 class GroundEnemy(BaseEnemy):
 	def __init__(self, thisScene, x, y):
 		super().__init__(thisScene, "sprites/snek.png", 100, 100, x, y)
+		self.state = States.FALLING
 	def update(self, offsetX, offsetY):
 		super().update(offsetX, offsetY)
 		if self.state == States.FALLING:
