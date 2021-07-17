@@ -18,6 +18,29 @@ class Facing():
 	RIGHT = 0
 	LEFT = 1
 
+class Camera():
+	def __init__(self, thisScene):
+		self.viewWidth = Scene.width
+		self.viewHeight = Scene.height
+		self.scene = thisScene
+
+	def follow(self, sprite):
+		self.sprite = sprite
+
+	def update(self):
+		if self.sprite.drawX < 250:
+			if self.sprite.x < 300:
+				self.sprite.x = 300
+			else:
+				self.scene.offsetX -= 6
+		if self.sprite.drawX > (350):
+			if self.sprite.x > (26*120):
+				self.sprite.x = (26*120)
+			else:
+				self.scene.offsetX += 6
+
+
+
 class Ground(Block):
 	def __init__(self, thisScene):
 		spriteMaker = [["sprites/ground.png"] ] *30
@@ -434,7 +457,7 @@ class Game(Scene):
 
 		self.sean = Sean(self)
 		#self.SourCreamAndOnionPringles = SourCreamAndOnionPringles(self)
-		self.kamille = Kamille(self)
+		self.k = Kamille(self)
 		#self.Rickrolled = RickAstley(self)
 		self.raphael = Raphael(self)
 		#self.Ethan = CheesePuff(self)	#CheesePuff
@@ -442,6 +465,8 @@ class Game(Scene):
 		#self.sophie = Sophie(self)
 
 		self.spaceship = Spaceship(self)
+		self.camera = Camera(self)
+		self.camera.follow(self.main)
 
 		
 	def updateGame(self):
