@@ -513,7 +513,7 @@ class FlyingEnemy(BaseEnemy):
 
 			# find out if the main character is above of the enemy - Kamille
 			if self.scene.main.y > self.y:
-        movementY = 1	
+        movementY = +1	
 
 			# move at random speed 
 			self.dx = (random.randint(0,5) * movementX)
@@ -573,6 +573,11 @@ class Game(Scene):
 
 
 		self.spaceship.update(self.offsetX, self.offsetY)
+
+		for enemy in self.spaceship.enemies:
+			if enemy.distanceTo(self.main) < 50:
+				print("You died!")
+				self.stop()
 		
 
 
