@@ -504,8 +504,8 @@ class FlyingEnemy(BaseEnemy):
 				movementX = -1		
 
 			# find out if the main character is to the right of the enemy - Raphael
-      if slef.scene.main.x > self.x:
-        movementX = 1
+			if self.scene.main.x > self.x:
+				movementX = 1
 
 			# find out if the main character is underneath the enemy (hint check y)	- sophie
 			if self.scene.main.y < self.y:
@@ -513,7 +513,7 @@ class FlyingEnemy(BaseEnemy):
 
 			# find out if the main character is above of the enemy - Kamille
 			if self.scene.main.y > self.y:
-        movementY = 1	
+      movementY = 1	
 
 			# move at random speed 
 			self.dx = (random.randint(0,5) * movementX)
