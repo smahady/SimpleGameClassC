@@ -487,6 +487,8 @@ class Game(Scene):
 		self.raphael.update(self.offsetX, self.offsetY)
 		#self.sophie.update(self.offsetX, self.offsetY)
 
+		self.camera.update()
+
 
 
 
