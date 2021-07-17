@@ -7,6 +7,7 @@ from SimpleGame.Sprite import Sprite
 from SimpleGame.Block import Block
 from SimpleGame.Background import Background
 from enum import Enum
+import random
 
 class States(Enum):
 	FALLING = 0
@@ -421,6 +422,7 @@ class Spaceship(Sprite):
 		self.dx = 6
 		self.timer = 60
 		self.enemies = []
+
 	def checkBounds(self):
 
 		if self.drawX < 0:
@@ -432,12 +434,63 @@ class Spaceship(Sprite):
 			self.timer = 60
 			self.enemySpawn()
 
-		#for enemy in self.enemies:
-		#	enemy.update(self.scene.offsetX, self.scene.offsetY)
+		for enemy in self.enemies:
+			enemy.update(self.scene.offsetX, self.scene.offsetY)
 
 	def enemySpawn(self):
-		pass
+		temp = random.randint(0,2)
+		newEnemy = 0
+		if temp == 0:
+			newEnemy = Enemy(self.scene, self.x, self.y)
+		elif temp==1:
+			newEnemy = GroundEnemy(self.scene, self.x, self.y)
+		elif temp ==2:
+			newEnemy = FlyingEnemy(self.scene, self.x, self.y)
+		self.enemies.append(newEnemy)
 
+# Abstract base class - a base class we intend to inherit in another class
+class BaseEnemy(Sprite):
+	def __init__(self, thisScene, file, width, height, x, y):
+		super().__init__(thisScene, file, width, height)
+		self.setBoundAction(Scene.DIE)
+		self.x = x
+		self.y = y
+		self.dy = 3
+		self.timer = 120
+	def update(self, offsetX, offsetY):
+		self.timer -= 1
+		if self.timer < 1:
+			self.makeDecision()
+		super().update(offsetX, offsetY)
+	def makeDecision(self):
+		pass	
+
+class Enemy(BaseEnemy):
+	def __init__(self, thisScene, x, y):
+		super().__init__(thisScene, "sprites/egg3.png", 128, 128, x, y)
+	def update(self, offsetX, offsetY):
+		super().update(offsetX, offsetY)
+	def makeDecision(self):
+		self.dy = 3
+		self.timer = 120				
+
+class GroundEnemy(BaseEnemy):
+	def __init__(self, thisScene, x, y):
+		super().__init__(thisScene, "sprites/egg3.png", 128, 128, x, y)
+	def update(self, offsetX, offsetY):
+		super().update(offsetX, offsetY)
+	def makeDecision(self):
+		self.dy = 3
+		self.timer = 120
+
+class FlyingEnemy(BaseEnemy):
+	def __init__(self, thisScene, x, y):
+		super().__init__(thisScene, "sprites/egg3.png", 128, 128, x, y)
+	def update(self, offsetX, offsetY):
+		super().update(offsetX, offsetY)
+	def makeDecision(self):
+		self.dy = 3
+		self.timer = 120		
 
 class Game(Scene):
 	def __init__(self):
