@@ -443,7 +443,7 @@ class Game(Scene):
 	def __init__(self):
 		super().__init__(600,600)
 
-		#self.changeBoundSize(4096, 600)
+		self.changeBoundSize(4096, 600)
 
 		self.offsetX = 20
 		self.offsetY = 20
