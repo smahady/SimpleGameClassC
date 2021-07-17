@@ -476,12 +476,34 @@ class Enemy(BaseEnemy):
 
 class GroundEnemy(BaseEnemy):
 	def __init__(self, thisScene, x, y):
-		super().__init__(thisScene, "sprites/egg3.png", 128, 128, x, y)
+		super().__init__(thisScene, "sprites/snek.png", 100, 100, x, y)
 	def update(self, offsetX, offsetY):
 		super().update(offsetX, offsetY)
+		if self.state == States.FALLING:
+			if self.scene.ground.collidesWith(self):
+				self.state = States.STAND
+				self.dy = 0	
 	def makeDecision(self):
-		self.dy = 3
-		self.timer = 120
+		self.stateTimer = 100
+		if self.state == States.STAND:
+			decision = random.randint(0,1)
+			if decision == 0:
+				self.dx = random.randint(-5, 5)
+			# if decision 1 run toward character
+			if decision ==1:
+				movementX = 0
+				movementY = 0
+
+				#find out if the main character is to the left of the enemy, if so move toward them - Kamille
+      if self.scene.main.x < self.x:
+        movementX = -1
+
+				# find out if the main character is to the right of the enemy, if so move toward them - Raphael
+      if self.scene.main.x > self.:
+        movementX = 1
+				
+				# move at random speed 
+				self.dx = (random.randint(0,5) * movementX)				
 
 class FlyingEnemy(BaseEnemy):
 	def __init__(self, thisScene, x, y):
